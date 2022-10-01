@@ -1,3 +1,4 @@
 # Description
 - Project created to learn fast API
-- I used the [documentation](https://fastapi.tiangolo.com/tutorial/) as reference 
+- I used the [documentation](https://fastapi.tiangolo.com/tutorial/) as reference
+- The project uses [pipenv](https://pipenv.pypa.io/en/latest/) to manager dependencies
