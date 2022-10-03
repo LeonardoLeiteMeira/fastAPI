@@ -1,9 +1,12 @@
 from models import ModelName, Person
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, HTTPException, Query
+from fastapi.responses import JSONResponse
+from repository import MongoConnection
 import uvicorn
 
 app = FastAPI()
 
+database = MongoConnection()
 
 @app.get("/")
 async def root():
@@ -47,7 +50,7 @@ async def getModels(mySelf:bool, brothers:bool|None = True):
     return response
 
 
-@app.post("/person/create")
+@app.post("/person/create", response_model=Person)
 async def createPerson(person:Person, nameWithValidation:str|None = Query(default=None, max_length=5)):
     print("Name with validation in query: {}".format(nameWithValidation))
     print("Person Data:\nFull name: {name} ".format(name=person.name))
@@ -60,7 +63,49 @@ async def createPerson(person:Person, nameWithValidation:str|None = Query(defaul
 
     print("Origim: {}".format(origim))
 
-    return {"message": "Created with success!"}
+    created_person = await database.createPerson(person)
+
+    return created_person
+
+@app.get("/testmongodb/names")
+async def getPeopleNames():
+    names = await database.getListOfNames()
+    return names
+
+@app.delete("/testmongodb/delete/")
+async def deletePerson(name:str|None = None, id:str|None = None):
+    result:bool = False
+    if id is not None:
+        result = await database.deleteById(id)
+        return returnDelection(result)
+     
+    
+    if name is None:
+        raise HTTPException(status_code=400, detail="Id or Name is needed")
+    
+    result = await database.deleteByName(name)
+
+    return returnDelection(result)
+
+@app.put("/testmongodb/update")
+async def updatePerson(person:Person):
+    result = await database.updatePersonById(person)
+    if result is True:
+        return {"result":"Person {} updated with success".format(str(person.id))}
+
+    raise HTTPException(status_code=400, detail="Person not found")
+
+@app.get("/testmongodb/getbyname/{name}",response_model=list[Person])
+async def getByName(name:str):
+    result = await database.findPerson(name)
+    return result
+    
+    
+def returnDelection(result:bool):
+    if result is True:
+        return {"Status":"Deleted with success"}
+    else:
+        raise HTTPException(status_code=500, detail="Interno error")
 
 
 
