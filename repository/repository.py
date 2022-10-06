@@ -1,8 +1,7 @@
-from hashlib import new
 import motor.motor_tornado
 from fastapi.encoders import jsonable_encoder
 
-from models import Person
+from models.models import Person
 
 class MongoConnection:
     def __init__(self):
@@ -14,6 +13,10 @@ class MongoConnection:
     async def findPerson(self,name:str):
         document = await self.dbPessoas.pessoas.find({"name":name}).to_list(None)
         return document
+
+    async def getPeople(self):
+        list = await self.dbPessoas.pessoas.find().to_list(None)
+        return list
 
     async def findPersonbyId(self,id:str):
         document = await self.dbPessoas.pessoas.find_one({"_id":id})

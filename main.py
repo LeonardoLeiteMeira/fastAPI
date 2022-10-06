@@ -1,12 +1,21 @@
-from models import ModelName, Person
+from models.base_models import ModelName
+from models.models import Person
 from fastapi import FastAPI, HTTPException, Query
-from fastapi.responses import JSONResponse
-from repository import MongoConnection
+from repository.repository import MongoConnection
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
 app = FastAPI()
 
 database = MongoConnection()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 @app.get("/")
 async def root():
@@ -67,6 +76,11 @@ async def createPerson(person:Person, nameWithValidation:str|None = Query(defaul
 
     return created_person
 
+@app.get("/people/getall", response_model=list[Person])
+async def getAllPeople():
+    people = await database.getPeople()
+    return people
+
 @app.get("/testmongodb/names")
 async def getPeopleNames():
     names = await database.getListOfNames()
@@ -110,4 +124,4 @@ def returnDelection(result:bool):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app,host="0.0.0.0",port=8000)
+    uvicorn.run(app,host="0.0.0.0",port=8000,debug=True)
