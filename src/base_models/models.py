@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from bson import ObjectId
-from models.base_models import PyObjectId
+from base_models.base_models import PyObjectId
 
 
 class Person(BaseModel):

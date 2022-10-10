@@ -1,9 +1,11 @@
-from models.base_models import ModelName
-from models.models import Person
+from base_models.base_models import ModelName
+from base_models.models import Person
 from fastapi import FastAPI, HTTPException, Query
-from repository.repository import MongoConnection
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+
+from modules.fast_api_tests import fast_api_tests_routers
+from modules.personal_data.repository.repository import MongoConnection
 
 app = FastAPI()
 
@@ -17,48 +19,7 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-
-@app.get("/")
-async def root():
-    return {"message": "Access /docs to see the documentation"}
-
-
-@app.get("/items/{id}")
-async def items(id: int):
-    return {
-        "phone": {
-            "id": id,
-            "name": "iPhone 12",
-            "memory": 128,
-            "user": "Leonardo Leite",
-        },
-    }
-
-
-@app.get("/models_description/{model_name}")
-async def get_model(model_name: ModelName):
-    if model_name is ModelName.artur or model_name is ModelName.laura:
-        return {"response": "Brothers"}
-
-    if model_name is ModelName.alice or model_name is ModelName.cicero:
-        return {"response": "Parents"}
-
-    if model_name is ModelName.leo:
-        return {"response": "It's me"}
-
-
-@app.get("/models")
-async def get_models(mySelf: bool, brothers: bool | None = True):
-    response: dict = {}
-    response["Parents"] = {"Mother": ModelName.alice.value, "Father": ModelName.cicero.value}
-
-    if mySelf is True:
-        response["Me"] = ModelName.leo
-
-    if brothers is True:
-        response["Brothers"] = {"Sister": ModelName.laura.value, "Brother": ModelName.artur.value}
-
-    return response
+app.include_router(fast_api_tests_routers)
 
 
 @app.post("/person/create", response_model=Person)
