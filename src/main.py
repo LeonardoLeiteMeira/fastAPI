@@ -6,6 +6,7 @@ import uvicorn
 
 from modules.fast_api_tests import fast_api_tests_routers
 from modules.personal_data import personal_data_router
+from modules.industrial_component_degradation import industry_component_router
 
 app = FastAPI()
 
@@ -19,6 +20,7 @@ app.add_middleware(
 
 app.include_router(fast_api_tests_routers)
 app.include_router(personal_data_router)
+app.include_router(industry_component_router)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000, debug=True)
