@@ -13,6 +13,6 @@ async def get_files():
     # return await get_processed_files()
     return await get_all_files()
 
-@router.get("/legacy_files/{file_name}", response_model=list[ProcessedData])
+@router.get("/legacy_files/{file_name}", response_model=ProcessedData)
 async def get_file(file_name:str):
     return await get_file_by_name(file_name)

@@ -15,7 +15,7 @@ async def get_file_by_name(file_name:str):
     collection = database.client.industrial.processed_data
     try:
         result = await collection.find({"file":file_name}).to_list(None)
-        return result
+        return result[0]
     except Exception as err:
         print(err)
 
