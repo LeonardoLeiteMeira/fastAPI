@@ -8,6 +8,7 @@ from modules.fast_api_tests import fast_api_tests_routers
 from modules.personal_data import personal_data_router
 from modules.industrial_component_degradation import industry_component_router
 from modules.legacy import legacy_data_router
+from modules.stream import stream_router
 
 app = FastAPI()
 
@@ -19,10 +20,11 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-app.include_router(fast_api_tests_routers)
-app.include_router(personal_data_router)
-app.include_router(industry_component_router)
-app.include_router(legacy_data_router)
+app.include_router(fast_api_tests_routers,prefix="/test")
+app.include_router(industry_component_router,prefix="/industrial")
+app.include_router(personal_data_router,prefix="/personal")
+app.include_router(legacy_data_router,prefix="/legacy")
+app.include_router(stream_router,prefix="/stream")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
