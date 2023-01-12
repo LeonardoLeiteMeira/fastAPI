@@ -9,6 +9,8 @@ motor = "*"
 tornado = "*"
 pandas = "*"
 jupyter = "*"
+influxdb = "*"
+influxdb-client = "*"
 
 [dev-packages]
 
