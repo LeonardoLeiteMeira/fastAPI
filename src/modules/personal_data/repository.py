@@ -1,7 +1,7 @@
 import motor.motor_tornado
 from fastapi.encoders import jsonable_encoder
 
-from base_models.models import Person
+from src.base_models.models import Person
 
 
 class MongoConnection:

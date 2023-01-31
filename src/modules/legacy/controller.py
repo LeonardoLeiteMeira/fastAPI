@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from modules.legacy.entities.processed_data import ProcessedData
-from modules.legacy.service import get_processed_files, get_file_by_name, get_all_files
+from src.modules.legacy.entities.processed_data import ProcessedData
+from src.modules.legacy.service import get_processed_files, get_file_by_name, get_all_files
 
 router = APIRouter(tags=["Legacy_data_source"])
 

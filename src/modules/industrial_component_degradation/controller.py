@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from modules.industrial_component_degradation.entities.register import Register
-from modules.industrial_component_degradation.service import get_register_by_month_and_day, get_registers_by_file_name
+from src.modules.industrial_component_degradation.entities.register import Register
+from src.modules.industrial_component_degradation.service import get_register_by_month_and_day, get_registers_by_file_name
 
 router = APIRouter(tags=["industrial_component_degradation"])
 

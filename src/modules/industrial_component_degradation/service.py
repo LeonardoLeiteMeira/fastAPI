@@ -1,5 +1,5 @@
-from modules.industrial_component_degradation.entities.register import Register
-from modules.industrial_component_degradation.repository import get_register_by_month_and_day_from_DB, get_register_file
+from src.modules.industrial_component_degradation.entities.register import Register
+from src.modules.industrial_component_degradation.repository import get_register_by_month_and_day_from_DB, get_register_file
 
 async def get_register_by_month_and_day(month:str, day:str)->list[Register]:
     #validate month and day

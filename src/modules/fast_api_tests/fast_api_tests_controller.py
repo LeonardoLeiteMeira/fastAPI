@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status
 
-from base_models.base_models import ModelName
+from src.base_models.base_models import ModelName
 
 
 from .app_service import AppService

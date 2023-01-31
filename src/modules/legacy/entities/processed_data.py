@@ -1,7 +1,7 @@
 from bson import ObjectId
 from pydantic import BaseModel, Field
-from base_models.base_models import PyObjectId
-from modules.legacy.entities.stop_reason_data import StopReasonData
+from src.base_models.base_models import PyObjectId
+from src.modules.legacy.entities.stop_reason_data import StopReasonData
 
 class ProcessedData(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")

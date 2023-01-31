@@ -1,6 +1,6 @@
 from bson import ObjectId
 from pydantic import BaseModel, Field
-from base_models.base_models import PyObjectId
+from src.base_models.base_models import PyObjectId
 
 class Register(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")

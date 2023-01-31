@@ -1,5 +1,5 @@
-from database_config.mongo_db import MongoDB
-from modules.industrial_component_degradation.entities.register import Register
+from src.database_config.mongo_db import MongoDB
+from src.modules.industrial_component_degradation.entities.register import Register
 
 async def get_register_by_month_and_day_from_DB(month:str, day:str)->list[Register]:
     database = MongoDB()

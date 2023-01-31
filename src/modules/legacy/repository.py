@@ -1,4 +1,4 @@
-from database_config.mongo_db import MongoDB
+from src.database_config.mongo_db import MongoDB
 
 
 async def get_list_of_legacy_files_processed():

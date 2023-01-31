@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query
-from base_models.models import Person
+from src.base_models.models import Person
 
-from modules.personal_data.repository import MongoConnection
+from src.modules.personal_data.repository import MongoConnection
 
 router = APIRouter(tags=["personal_data"])
 

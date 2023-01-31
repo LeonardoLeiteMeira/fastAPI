@@ -1,4 +1,4 @@
-import modules.legacy.repository as repository
+import src.modules.legacy.repository as repository
 
 async def get_processed_files():
     json_list = await repository.get_list_of_legacy_files_processed()

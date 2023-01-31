@@ -1,4 +1,4 @@
-from base_models.singleton import Singleton
+from src.base_models.singleton import Singleton
 import motor.motor_tornado
 from fastapi.encoders import jsonable_encoder
 
