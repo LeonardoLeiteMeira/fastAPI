@@ -8,18 +8,24 @@ router = APIRouter(tags=["Super Heros"])
 
 @router.post("/create")
 async def create_hero_controller(hero: Hero):
-    await create_hero(hero)
-    return 201
+    result = await create_hero(hero)
+    if result.isSuccess:
+        return 201
+    return 400
 
 @router.get("/read", response_model=list[Hero])
 async def read_hero_controller():
-    heros =  await read_heros()
-    return heros
+    result =  await read_heros()
+    if result.isSuccess:
+        return result.data
+    return 400
 
 @router.patch("/update")
 async def update_hero_controller(updated_hero: Hero):
-    await update_hero(updated_hero)
-    return 201
+    result = await update_hero(updated_hero)
+    if result.isSuccess:
+        return 201
+    return 400
 
 @router.delete("/delete/{id}")
 async def delete_hero_controller(id:str):
